@@ -25,7 +25,7 @@ class _BlankPageState extends State<BlankPage> {
           title: Text(
             widget.title,
             textAlign: TextAlign.start,
-            style: TextStyle(color: Colors.black, fontSize: 25),
+            style: TextStyle(color: Colors.white, fontSize: 25),
           ),
         ),
       ),

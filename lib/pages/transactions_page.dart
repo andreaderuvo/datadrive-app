@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:obd/commons_widgets.dart';
 import 'package:obd/datadrive_rest_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -84,11 +85,14 @@ class _TransactionsPageState extends State<TransactionsPage> {
       resizeToAvoidBottomPadding: true,
       appBar: AppBar(
         title: ListTile(
-          leading: Icon(Icons.linear_scale),
+          leading: Icon(
+            Icons.linear_scale,
+            color: Colors.white,
+          ),
           title: Text(
             widget.title,
             textAlign: TextAlign.start,
-            style: TextStyle(color: Colors.black, fontSize: 25),
+            style: TextStyle(color: Colors.white, fontSize: 25),
           ),
         ),
       ),
@@ -98,20 +102,26 @@ class _TransactionsPageState extends State<TransactionsPage> {
         onPressed: _searchItems,
       ),
       body: Column(
+        mainAxisSize: MainAxisSize.max,
         children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              children: <Widget>[
-                Text(
-                  'My Public Key',
-                  style: TextStyle(fontSize: 18),
-                ),
-                SelectableText(
-                  '$_publicKey',
-                  style: TextStyle(fontSize: 18),
-                ),
-              ],
+          Card(
+            color: Colors.red,
+            child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    'Public Key',
+                    style: TextStyle(fontSize: 15, color: Colors.white),
+                  ),
+                  SelectableText(
+                    '$_publicKey',
+                    style: TextStyle(fontSize: 14, color: Colors.white),
+                  ),
+                ],
+              ),
             ),
           ),
           Expanded(child: body(context)),
@@ -164,17 +174,55 @@ class _TransactionsPageState extends State<TransactionsPage> {
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
-                              Text(
-                                item['transaction']['asset'].toString(),
-                                style: TextStyle(fontSize: 18),
+                              Row(
+                                children: <Widget>[
+//                                  Expanded(
+//                                    child: Text(
+//                                      item['transaction']['asset'].toString(),
+//                                      style: TextStyle(fontSize: 18),
+//                                    ),
+//                                  ),
+                                  Expanded(
+                                    child: Column(
+                                      children: <Widget>[
+                                        Text(
+                                          'Timestamp',
+                                          style: TextStyle(
+                                              fontSize: 20, color: Colors.red),
+                                        ),
+                                        Text(
+                                            item['transaction']['metadata']
+                                                    ['createdAt']
+                                                .toString(),
+                                            style: TextStyle(fontSize: 20)),
+                                      ],
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: Column(
+                                      children: <Widget>[
+                                        Text(
+                                          'Mileage (Km)',
+                                          style: TextStyle(
+                                              fontSize: 20, color: Colors.red),
+                                        ),
+                                        Text(
+                                            item['transaction']['asset']['data']
+                                                    ['mileage']
+                                                .toString(),
+                                            style: TextStyle(fontSize: 20)),
+                                      ],
+                                    ),
+                                  ),
+                                ],
                               ),
-                              SizedBox(
-                                height: 5,
-                              ),
-                              Text(
-                                item['transaction']['metadata'].toString(),
-                                style: TextStyle(fontSize: 18),
-                              ),
+//                              SizedBox(
+//                                height: 5,
+//                              ),
+//                              Text(
+//                                item['transaction']['metadata'].toString(),
+//                                style: TextStyle(fontSize: 18),
+//                              ),
                             ],
                           )
                         : CommonsWidgets.loadingBody('', ''),

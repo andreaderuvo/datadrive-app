@@ -13,9 +13,9 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   TextEditingController _usernameController =
-      new TextEditingController(text: 'admin');
+      new TextEditingController(text: 'mario@rossi.it');
   TextEditingController _passwordController =
-      new TextEditingController(text: 'admin');
+      new TextEditingController(text: 'password');
 
   @override
   void initState() {
@@ -77,7 +77,7 @@ class _LoginPageState extends State<LoginPage> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               Image.asset(
-                'images/obd_logo.jpeg',
+                'images/obd_logo2.jpeg',
                 height: 150,
                 fit: BoxFit.contain,
               ),
@@ -119,7 +119,7 @@ class _LoginPageState extends State<LoginPage> {
                         padding: EdgeInsets.all(15),
                         child: Text(
                           'SIGN IN',
-                          style: TextStyle(fontSize: 18),
+                          style: TextStyle(fontSize: 18, color: Colors.white),
                         ),
                         color: Colors.red[500],
                         onPressed: () async {

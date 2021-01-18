@@ -4,6 +4,8 @@ import 'package:provider/provider.dart';
 import 'package:obd/bottom_navigation_provider.dart';
 import 'package:obd/pages/blank_page.dart';
 
+import 'obd_page.dart';
+
 class Home extends StatefulWidget {
   Home({Key key}) : super(key: key);
 
@@ -13,15 +15,21 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   var currentTab = [
-    BlankPage(
-      icon: Icon(Icons.directions_car),
+    OBDPage(
+      icon: Icon(
+        Icons.directions_car,
+        color: Colors.white,
+      ),
       title: 'Dashboard',
     ),
     TransactionsPage(
       title: 'Transactions',
     ),
     BlankPage(
-      icon: Icon(Icons.settings),
+      icon: Icon(
+        Icons.settings,
+        color: Colors.white,
+      ),
       title: 'Settings',
     )
   ];

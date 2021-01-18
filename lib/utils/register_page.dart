@@ -25,6 +25,12 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   void initState() {
     super.initState();
+    setState(() {
+      _nomeController.text = 'Mario';
+      _cognomeController.text = 'Mario';
+      _usernameController.text = 'mario@rossi.it';
+      _passwordController.text = 'password';
+    });
     init();
   }
 
@@ -33,10 +39,10 @@ class _RegisterPageState extends State<RegisterPage> {
     String publicKey = prefs.getString('publicKey');
     String privateKey = prefs.getString('privateKey');
 
-    if (publicKey != null && privateKey != null) {
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => LoginPage()));
-    }
+//    if (publicKey != null && privateKey != null) {
+//      Navigator.pushReplacement(
+//          context, MaterialPageRoute(builder: (context) => LoginPage()));
+//    }
   }
 
   @override
@@ -87,7 +93,7 @@ class _RegisterPageState extends State<RegisterPage> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               Image.asset(
-                'images/obd_logo.jpeg',
+                'images/obd_logo2.jpeg',
                 height: 150,
                 fit: BoxFit.contain,
               ),
@@ -155,7 +161,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         padding: EdgeInsets.all(15),
                         child: Text(
                           'SIGN UP',
-                          style: TextStyle(fontSize: 18),
+                          style: TextStyle(fontSize: 18, color: Colors.white),
                         ),
                         color: Colors.red[500],
                         onPressed: () async {
@@ -178,12 +184,39 @@ class _RegisterPageState extends State<RegisterPage> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString('publicKey', publicKey);
     await prefs.setString('privateKey', privateKey);
+    showSuccessDialog(publicKey);
+  }
 
-    var home = ChangeNotifierProvider<BottomNavigationProvider>(
-      child: Home(),
+  void gotoLogin() {
+    var page = ChangeNotifierProvider<BottomNavigationProvider>(
+      child: LoginPage(),
       builder: (BuildContext context) => BottomNavigationProvider(),
     );
-    Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => home));
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => page));
+  }
+
+  void showSuccessDialog(String publicKey) async {
+    await showDialog<bool>(
+        barrierDismissible: false,
+        context: context,
+        builder: (BuildContext context) {
+          return new WillPopScope(
+              onWillPop: () {},
+              child: new AlertDialog(
+                title: Text('Registration succesful'),
+                content: Text(
+                  "Your private key is stored safely in your app.\n\nYour public key is $publicKey",
+                  style: TextStyle(fontSize: 15),
+                ),
+                actions: <Widget>[
+                  new FlatButton(
+                      child: const Text('OK'),
+                      onPressed: () {
+                        Navigator.pop(context, true);
+                        gotoLogin();
+                      }),
+                ],
+              ));
+        });
   }
 }

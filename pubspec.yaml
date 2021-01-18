@@ -32,6 +32,9 @@ dependencies:
   connectivity: 0.4.3+7
   package_info: 0.4.0+6
 
+  flutter_mdns_plugin: ^0.0.2
+  intl: ^0.16.1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -54,6 +57,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - images/obd_logo.jpeg
+    - images/obd_logo2.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
