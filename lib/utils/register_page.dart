@@ -203,9 +203,8 @@ class _RegisterPageState extends State<RegisterPage> {
           return new WillPopScope(
               onWillPop: () {},
               child: new AlertDialog(
-                title: Text('Registration succesful'),
                 content: Text(
-                  "Your private key is stored safely in your app.\n\nYour public key is $publicKey",
+                  "Registration Completed.",
                   style: TextStyle(fontSize: 15),
                 ),
                 actions: <Widget>[

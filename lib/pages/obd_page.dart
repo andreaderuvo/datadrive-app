@@ -25,10 +25,21 @@ class _OBDPageState extends State<OBDPage> {
   TextEditingController _vehicleController = new TextEditingController();
   TextEditingController _serialController = new TextEditingController();
 
+  String _publicKey;
+
   @override
   void initState() {
     super.initState();
+    init();
     testMDNS();
+  }
+
+  void init() async{
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    String publicKey = prefs.getString('publicKey');
+    setState(() {
+      _publicKey = publicKey;
+    });
   }
 
   Future<void> testMDNS() async {
@@ -202,7 +213,7 @@ class _OBDPageState extends State<OBDPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisSize: MainAxisSize.max,
                   children: <Widget>[
-                    Text('CONNECTED',
+                    Text('OBD CONNECTED',
                         style: TextStyle(
                             fontSize: 30.0,
                             color: Colors.green,
@@ -210,6 +221,11 @@ class _OBDPageState extends State<OBDPage> {
                     SizedBox(
                       height: 20,
                     ),
+                    Text(
+                      "The key\n$_publicKey\nhas been succcessfully associated",
+                      style: TextStyle(fontSize: 18),
+                    ),
+                    SizedBox(height: 10,),
                     Text('Vehicle Name', style: TextStyle(fontSize: 20.0)),
                     Text('${_vehicleController.text}',
                         style: TextStyle(
